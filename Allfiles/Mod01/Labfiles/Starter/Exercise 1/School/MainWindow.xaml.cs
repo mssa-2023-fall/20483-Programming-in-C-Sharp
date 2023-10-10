@@ -1,12 +1,11 @@
-﻿using System;
+﻿using School.Data;
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using School.Data;
-using System.Globalization;
 
 namespace School
 {
@@ -57,6 +56,25 @@ namespace School
         // When the user presses a key, determine whether to add a new student to a class, remove a student from a class, or modify the details of a student
         private void studentsList_KeyDown(object sender, KeyEventArgs e)
         {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    Student selectedStudent = studentsList.SelectedItem as Student;
+                    var sf = new StudentForm { Title = " Edit Student Details " };
+                    sf.firstName.Text = selectedStudent.FirstName;
+                    sf.lastName.Text = selectedStudent.LastName;
+                    sf.dateOfBirth.Text = selectedStudent.DateOfBirth.ToString("d");
+                    if (sf.ShowDialog().Value)//if ok is selected 
+                    {
+                        selectedStudent.FirstName = sf.firstName.Text;
+                        selectedStudent.LastName = sf.lastName.Text;
+                        selectedStudent.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
+                    }
+                    break;
+
+            }
+
+
             // TODO: Exercise 1: Task 1a: If the user pressed Enter, edit the details for the currently selected student
             // TODO: Exercise 1: Task 2a: Use the StudentsForm to display and edit the details of the student
             // TODO: Exercise 1: Task 2b: Set the title of the form and populate the fields on the form with the details of the student
@@ -69,7 +87,7 @@ namespace School
 
         private void studentsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
- 
+
         }
 
         // Save changes back to the database and make them permanent
@@ -101,3 +119,5 @@ namespace School
         #endregion
     }
 }
+
+

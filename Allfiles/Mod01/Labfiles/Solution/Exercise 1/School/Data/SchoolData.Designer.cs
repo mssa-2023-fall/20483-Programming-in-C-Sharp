@@ -9,9 +9,9 @@
 
 using System;
 using System.ComponentModel;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Core.Objects.DataClasses;
+using System.Data.EntityClient;
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("SchoolDBModel", "FK__Student__ClassId__1B0907CE", "Teacher",  System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.One, typeof(School.Data.Teacher), "Student", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(School.Data.Student), true)]
+[assembly: EdmRelationshipAttribute("SchoolDBModel", "FK__Student__ClassId__1B0907CE", "Teacher", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(School.Data.Teacher), "Student", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(School.Data.Student), true)]
 
 #endregion
 

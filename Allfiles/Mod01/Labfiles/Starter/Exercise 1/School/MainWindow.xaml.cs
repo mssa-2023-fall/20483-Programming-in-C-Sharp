@@ -63,7 +63,35 @@ namespace School
             // TODO: Exercise 1: Task 3a: Display the form
             // TODO: Exercise 1: Task 3b: When the user closes the form, copy the details back to the student
             // TODO: Exercise 1: Task 3c: Enable saving (changes are not made permanent until they are written back to the database)
+            switch (e.Key)
+            {
+                // If the user pressed Enter, edit the details for the currently selected student
+                case Key.Enter:
+                    Student student = this.studentsList.SelectedItem as Student;
+
+                    // Use the StudentsForm to display and edit the details of the student
+                    StudentForm sf = new StudentForm();
+
+                    // Set the title of the form and populate the fields on the form with the details of the student           
+                    sf.Title = "Edit Student Details";
+                    sf.firstName.Text = student.FirstName;
+                    sf.lastName.Text = student.LastName;
+                    sf.dateOfBirth.Text = student.DateOfBirth.ToString("d"); // Format the date to omit the time element
+
+                    // Display the form
+                    if (sf.ShowDialog().Value)
+                    {
+                        // When the user closes the form, copy the details back to the student
+                        student.FirstName = sf.firstName.Text;
+                        student.LastName = sf.lastName.Text;
+                        student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text, CultureInfo.InvariantCulture);
+                        // Enable saving (changes are not made permanent until they are written back to the database)
+                        saveChanges.IsEnabled = true;
+                    }
+                    break;
+            }
         }
+        
 
         #region Predefined code
 

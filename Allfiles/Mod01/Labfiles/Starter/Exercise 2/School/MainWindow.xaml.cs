@@ -117,6 +117,12 @@ namespace School
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
+            if(value != null)
+            {
+                var dob = System.Convert.ToDateTime(value, culture);
+                var age = DateTime.Now.Subtract(dob);
+                return age.Days / 365;
+            }
             return "";
         }
 

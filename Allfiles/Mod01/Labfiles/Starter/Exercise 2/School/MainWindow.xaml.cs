@@ -84,7 +84,30 @@ namespace School
                     }
                     break;
 
-                    // TODO: Exercise 2: Task 1a: If the user pressed Insert, add a new student
+                // TODO: Exercise 2: Task 1a: If the user pressed Insert, add a new student
+                case Key.Insert:
+                    StudentForm newsf = new StudentForm();
+                    newsf.Title = "New Student for Class " + teacher.Class;
+                    if (newsf.ShowDialog().Value)
+                    {
+                        Student newStudent = new Student
+                        {
+                            FirstName = newsf.firstName.Text,
+                            LastName = newsf.lastName.Text,
+                            DateOfBirth = DateTime.Parse(newsf.dateOfBirth.Text)
+                        };
+                        this.teacher.Students.Add(newStudent);
+                        studentsList.DataContext = null;
+                        studentsList.DataContext = this.teacher.Students;
+
+                        this.saveChanges.IsEnabled = true;
+                        this.schoolContext.SaveChanges();
+                        
+                    }
+                    break;
+                
+
+
                     // TODO: Exercise 2: Task 2a: Use the StudentsForm to get the details of the student from the user
                     // TODO: Exercise 2: Task 2b: Set the title of the form to indicate which class the student will be added to (the class for the currently selected teacher)
                     // TODO: Exercise 2: Task 3a: Display the form and get the details of the new student

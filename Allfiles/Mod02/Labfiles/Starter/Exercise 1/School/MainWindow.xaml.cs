@@ -7,6 +7,9 @@ using System.Windows.Data;
 using System.Windows.Input;
 using School.Data;
 
+//added into 
+using System.Data;
+using System.Data.Objects;
 
 namespace School
 {
@@ -63,29 +66,7 @@ namespace School
                 case Key.Enter:
                     // TODO: Exercise 1: Task 1a: Copy code for editing the details for that student
                     Student student = this.studentsList.SelectedItem as Student;
-                    
-                    // TODO: Exercise 1: Task 3d: Refactor as the EditStudent method
- 
-                    // Use the StudentsForm to display and edit the details of the student
-                    StudentForm sf = new StudentForm();
-
-                    // Set the title of the form and populate the fields on the form with the details of the student           
-                    sf.Title = "Edit Student Details";
-                    sf.firstName.Text = student.FirstName;
-                    sf.lastName.Text = student.LastName;
-                    sf.dateOfBirth.Text = student.DateOfBirth.ToString("d"); // Format the date to omit the time element
-
-                    // Display the form
-                    if (sf.ShowDialog().Value)
-                    {
-                        // When the user closes the form, copy the details back to the student
-                        student.FirstName = sf.firstName.Text;
-                        student.LastName = sf.lastName.Text;
-                        student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
-
-                        // Enable saving (changes are not made permanent until they are written back to the database)
-                        saveChanges.IsEnabled = true;
-                    }
+                    editStudent(student);
                     break;
 
                 // If the user pressed Insert, add a new student
@@ -105,28 +86,8 @@ namespace School
         // Exercise 1: Task 1b: If the user double-clicks a student, edit the details for that student
         private void studentsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-                Student student = this.studentsList.SelectedItem as Student;
-
-                // TODO: Exercise 1: Task 3d: Refactor as the EditStudent method
-                StudentForm sf = new StudentForm();
-
-                // Set the title of the form and populate the fields on the form with the details of the student           
-                sf.Title = "Edit Student Details";
-                sf.firstName.Text = student.FirstName;
-                sf.lastName.Text = student.LastName;
-                sf.dateOfBirth.Text = student.DateOfBirth.ToString("d"); // Format the date to omit the time element
-
-                if (sf.ShowDialog().Value) // Display the form
-            {
-                    // When the user closes the form, copy the details back to the student
-                    student.FirstName = sf.firstName.Text;
-                    student.LastName = sf.lastName.Text;
-                    student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
-
-                    // Enable saving (changes are not made permanent until they are written back to the database)
-                    saveChanges.IsEnabled = true;
-                }
-            }
+            editStudent(this.studentsList.SelectedItem as Student);
+        }
         private void addNewStudent()
         {
             // TODO: Exercise 1: Task 3a: Refactor as the addNewStudent method
@@ -175,10 +136,52 @@ namespace School
                 saveChanges.IsEnabled = true;
             }
         }
+
+        private void editStudent(Student student)
+        {
+            StudentForm sf = new StudentForm();
+
+            // Set the title of the form and populate the fields on the form with the details of the student           
+            sf.Title = "Edit Student Details";
+            sf.firstName.Text = student.FirstName;
+            sf.lastName.Text = student.LastName;
+            sf.dateOfBirth.Text = student.DateOfBirth.ToString("d"); // Format the date to omit the time element
+
+            // Display the form
+            if (sf.ShowDialog().Value)
+            {
+                // When the user closes the form, copy the details back to the student
+                student.FirstName = sf.firstName.Text;
+                student.LastName = sf.lastName.Text;
+                student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
+
+                // Enable saving (changes are not made permanent until they are written back to the database)
+                saveChanges.IsEnabled = true;
+            }
+        }
         // Save changes back to the database and make them permanent
         private void saveChanges_Click(object sender, RoutedEventArgs e)
         {
-           
+           try
+            {
+                this.schoolContext.SaveChanges(); //saves changes
+                saveChanges.IsEnabled = false; //Disabling the save btn
+            }
+            catch (OptimisticConcurrencyException)
+            {
+                this.schoolContext.Refresh(RefreshMode.ClientWins, schoolContext.Students);
+                this.schoolContext.SaveChanges();
+            }
+            catch(UpdateException ex)
+            {
+                MessageBox.Show(ex.InnerException.Message, "Error Saving");
+                this.schoolContext.Refresh(RefreshMode.StoreWins, schoolContext.Students);
+            }
+            catch(Exception ee)
+            {
+                MessageBox.Show(ee.Message, "Error");
+                this.schoolContext.Refresh(RefreshMode.ClientWins, schoolContext.Students);
+            }
         }
     }
 

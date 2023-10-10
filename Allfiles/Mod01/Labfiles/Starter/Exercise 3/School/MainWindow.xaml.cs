@@ -1,5 +1,4 @@
-﻿using School.Data;
-using System;
+﻿using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
@@ -7,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using School.Data;
 
 
 namespace School
@@ -61,8 +61,7 @@ namespace School
             switch (e.Key)
             {
                 // If the user pressed Enter, edit the details for the currently selected student
-                case Key.Enter:
-                    Student student = this.studentsList.SelectedItem as Student;
+                case Key.Enter: Student student = this.studentsList.SelectedItem as Student;
 
                     // Use the StudentsForm to display and edit the details of the student
                     StudentForm sf = new StudentForm();
@@ -113,28 +112,6 @@ namespace School
                         saveChanges.IsEnabled = true;
                     }
                     break;
-                case Key.Delete:
-                    Student selectedStudent = this.studentsList.SelectedItems as Student;
-                    if (selectedStudent != null)
-                    {
-                        string message = $"Are you sure that you want to delete {selectedStudent}?";
-                        //prompt a message using the messagebox class
-                        MessageBoxResult result = MessageBox.Show(message, "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            this.teacher.Students.Remove(selectedStudent);
-
-                            studentsList.DataContext = null;
-                            studentsList.DataContext = this.teacher.Students;
-
-                            saveChanges.IsEnabled = true;
-                        }
-                    }
-                    break;
-
-
-
 
                     // TODO: Exercise 3: Task 1a: If the user pressed Delete, remove the currently selected student
                     // TODO: Exercise 3: Task 2a: Prompt the user to confirm that the student should be removed
@@ -147,7 +124,7 @@ namespace School
 
         private void studentsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+ 
         }
 
         // Save changes back to the database and make them permanent

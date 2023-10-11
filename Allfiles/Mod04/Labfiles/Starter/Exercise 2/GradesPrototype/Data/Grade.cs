@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,13 +18,73 @@ namespace GradesPrototype.Data
         public int StudentID { get; set; }
 
         // TODO: Exercise 2: Task 2a: Add validation to the AssessmentDate property
-        public string AssessmentDate { get; set; }
-        
+        private string _assessmentDate;
+        public string AssessmentDate 
+        {
+            get
+            {
+                return _assessmentDate;
+            }
+
+            set
+            {
+                DateTime assessmentDate;
+
+                if(DateTime.TryParse(value, out assessmentDate))
+                {
+                    if (assessmentDate > DateTime.Now) throw new ArgumentOutOfRangeException("AssessmentDate", "Date must be on or before today's date");
+
+                    _assessmentDate = assessmentDate.ToString("d");
+                }
+                else
+                {
+                    throw new ArgumentException("AssessmentDate", "Date not recognized");
+                }
+            }
+        }
+
         // TODO: Exercise 2: Task 2b: Add validation to the SubjectName property
-        public string SubjectName { get; set; }
+        private string _subjectName;
+        public string SubjectName 
+        { 
+            get
+            {
+                return _subjectName;
+            }
+
+            set
+            {
+                if(DataSource.Subjects.Contains(value))
+                {
+                    _subjectName = value;
+                }
+                else
+                {
+                    throw new ArgumentException("SubjectName", "Subject not recognized");
+                }
+            }
+        }
 
         // TODO: Exercise 2: Task 2c: Add validation to the Assessment property
-        public string Assessment { get; set; }
+        private string _assessment;
+        public string Assessment
+        {
+            get
+            {
+                return _assessment;
+            }
+
+            set
+            {
+                Match matchGrade = Regex.Match(value, @"[A-E][+-]?$");
+                if (matchGrade.Success)
+                {
+                    _assessment = value;
+                }
+                else
+                    throw new ArgumentException("Assessment", "Assessment not in range of A+ to E-");
+            }
+        }
 
         public string Comments { get; set; }
                 

@@ -53,13 +53,48 @@ namespace GradesPrototype.Views
         // TODO: Exercise 4: Task 4a: Enable a teacher to remove a student from a class
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
+            if (SessionContext.UserRole != Role.Teacher) return;
 
+            try
+            {
+                string msg = $"Remove {SessionContext.CurrentStudent.FirstName} {SessionContext.CurrentStudent.LastName}?";
+                MessageBoxResult result = MessageBox.Show(msg, "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SessionContext.CurrentTeacher.RemoveFromClass(SessionContext.CurrentStudent);
+
+                    if (Back != null) Back(sender, e);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error removing student from class", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         // TODO: Exercise 4: Task 5a: Enable a teacher to add a grade to a student
         private void AddGrade_Click(object sender, RoutedEventArgs e)
         {
+            if (SessionContext.UserRole != Role.Teacher) return;
 
+            try
+            {
+                GradeDialog gd = new GradeDialog();
+
+                if(gd.ShowDialog().Value)
+                {
+                    Grade newGrade = new Grade();
+                    newGrade.AssessmentDate = gd.assessmentDate.SelectedDate.Value.ToString("d");
+                    newGrade.SubjectName = gd.subject.SelectedValue.ToString();
+                    newGrade.Assessment = gd.assessmentGrade.Text;
+                    newGrade.Comments = gd.comments.Text;
+
+                    DataSource.Grades.Add(newGrade);
+
+                    SessionContext.CurrentStudent.AddGrade(newGrade);
+
+                    Refresh();
+                }
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message, "Error adding assessment grade", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         #endregion
 

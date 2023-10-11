@@ -178,6 +178,12 @@ namespace GradesPrototype.Data
         }
 
         // TODO: Exercise 4: Task 2c: Add a grade to a student (the grade is already populated)
+        public void AddGrade(Grade g)
+        {
+            if (g.StudentID == 0) g.StudentID = StudentID;
+            else
+                throw new ArgumentException("Grade", "Grade is assigned to another student");
+        }
     }
 
     public class Teacher
@@ -226,7 +232,16 @@ namespace GradesPrototype.Data
         }
 
         // TODO: Exercise 4: Task 2a: Enroll a student in the class for this teacher
+        public void EnrollInClass(Student newStudent)
+        {
+        }
 
         // TODO: Exercise 4: Task 2b: Remove a student from the class for this teacher
+        public void RemoveFromClass(Student student)
+        {
+            if (student.TeacherID == TeacherID) student.TeacherID = 0;
+            else
+                throw new ArgumentException("Student", "Student is not assigned to this class");
+        }
     }
 }

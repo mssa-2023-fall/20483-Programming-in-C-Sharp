@@ -30,6 +30,7 @@ namespace GradesPrototype
             DataSource.CreateData();
 
             // TODO: Exercise 3: Task 4a: Sort the data in the Students collection
+            DataSource.Students.Sort();
             GotoLogon();
         }
 

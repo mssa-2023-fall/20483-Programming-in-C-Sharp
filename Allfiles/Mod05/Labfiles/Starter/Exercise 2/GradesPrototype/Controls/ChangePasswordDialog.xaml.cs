@@ -30,14 +30,33 @@ namespace GradesPrototype.Controls
         private void ok_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Exercise 2: Task 4a: Get the details of the current user
+            User currentUser;
+            currentUser = 
+                (SessionContext.UserRole == Role.Teacher) ? 
+                    (User)SessionContext.CurrentTeacher : (User)SessionContext.CurrentStudent;
 
             // TODO: Exercise 2: Task 4b: Check that the old password is correct for the current user
-
+            string oldPwd = oldPassword.Password;
+            if(!currentUser.VerifyPassword(oldPwd))
+            {
+                MessageBox.Show("Old password is incorrect", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             // TODO: Exercise 2: Task 4c: Check that the new password and confirm password fields are the same
-
+            string newPwd = newPassword.Password, 
+                    confirmPwd = confirm.Password;
+            if(String.Compare(newPwd, confirmPwd) != 0)
+            {
+                MessageBox.Show("Passwords do not match", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             // TODO: Exercise 2: Task 4d: Attempt to change the password
             // If the password is not sufficiently complex, display an error message
-
+            if(!currentUser.SetPassword(newPwd))
+            {
+                MessageBox.Show("Password is not complex enough", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             // Indicate that the data is valid
             this.DialogResult = true;
         }

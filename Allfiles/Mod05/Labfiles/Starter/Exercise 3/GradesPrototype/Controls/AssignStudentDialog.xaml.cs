@@ -92,7 +92,11 @@ namespace GradesPrototype.Controls
                 }
             }
             // TODO: Exercise 3: Task 2c: Catch and handle the ClassFullException
-
+            catch (ClassFullException cfe)
+            {
+                string msg = $"{cfe.Message}. Class: {cfe.ClassName}";
+                MessageBox.Show(msg, "Error enrolling student", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error enrolling student", MessageBoxButton.OK, MessageBoxImage.Error);

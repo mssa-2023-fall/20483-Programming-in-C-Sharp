@@ -68,6 +68,8 @@ namespace GradesPrototype.Controls
 
                 if(result == MessageBoxResult.Yes)
                 {
+                    int teacherId = SessionContext.CurrentTeacher.TeacherID;
+
                     SessionContext.CurrentTeacher.EnrollInClass(student);
                     Refresh();
                 }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\MicrosoftLearning\20483-Programming-in-C-Sharp.git\Allfiles\Mod07\Labfiles\Solution\Exercise 3\Grades.DataModel\GradesModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Leona\Source\Repos\20483-Programming-in-C-Sharp\Allfiles\Mod07\Labfiles\Starter\Exercise 1\Grades.DataModel\GradesModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

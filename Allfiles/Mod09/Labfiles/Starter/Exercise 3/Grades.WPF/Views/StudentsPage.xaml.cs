@@ -54,12 +54,19 @@ namespace Grades.WPF
         #endregion
 
         #region Callbacks
-        
+
         #endregion
 
         #region Events
         // TODO: Exercise 3: Task 2b: Forward the MouseEnter and MouseLeave events to the photograph control
-
+        private void Student_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((StudentPhoto)sender).OnMouseEnter();
+        }
+        private void Student_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((StudentPhoto)sender).OnMouseLeave();
+        }
         private void RemoveStudent_MouseEnter(object sender, MouseEventArgs e)
         {
             Grid grid = (Grid)sender;

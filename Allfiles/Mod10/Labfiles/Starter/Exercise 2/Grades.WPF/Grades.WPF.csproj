@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grades.WPF</RootNamespace>
     <AssemblyName>Grades.WPF</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -79,6 +79,9 @@
     <Compile Include="Controls\AddStudentDialog.xaml.cs">
       <DependentUpon>AddStudentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BusyIndicator.xaml.cs">
+      <DependentUpon>BusyIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FlipControl.cs" />
     <Compile Include="Controls\GrungeButton.xaml.cs">
       <DependentUpon>GrungeButton.xaml</DependentUpon>
@@ -113,6 +116,10 @@
     <Page Include="Controls\AddStudentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BusyIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\GrungeButton.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -174,6 +181,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Grades.WPF.GradesService.DataModel.GradesEntities.datasource" />
     <None Include="Service References\GradesService.DataModel\service.edmx" />
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -203,9 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="TODO Exercise 2 Task 1a.txt" />
   </ItemGroup>
   <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\GradesService.DataModel\">

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 23/07/2012 19:32:18
+// Generation date: 23/07/2012 19:58:14
 namespace Grades.WPF.GradesService.DataModel
 {
     
@@ -22,8 +22,8 @@ namespace Grades.WPF.GradesService.DataModel
         /// Initialize a new GradesEntities object.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public GradesEntities(global::System.Uri serviceRoot) : 
-                base(serviceRoot, global::System.Data.Services.Common.DataServiceProtocolVersion.V2)
+        public GradesEntities(global::System.Uri serviceRoot) :
+                base(serviceRoot) //, global::System.Data.Services.Common.DataServiceProtocolVersion.V2)
         {
             this.ResolveName = new global::System.Func<global::System.Type, string>(this.ResolveNameFromType);
             this.ResolveType = new global::System.Func<string, global::System.Type>(this.ResolveTypeFromName);

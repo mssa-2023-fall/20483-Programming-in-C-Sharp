@@ -257,8 +257,8 @@ namespace Grades.WPF
                 {
                     try
                     {
-                        // TODO: Exercise 1: Task 2b: Generate the report by using a separate task
-
+                        // Generate the report by using a seperate task
+                        Task.Run(() => GenerateStudentReport(SessionContext.CurrentStudent, dialog.FileName));
                     }
                     catch (Exception ex)
                     {
@@ -510,7 +510,7 @@ namespace Grades.WPF
             return builder.ToString();
         }
 
-        // TODO: Exercise 1: Task 2a: Generate a student grade report as a Word document.
+        // Generate a student grade report as a Word document.
         public void GenerateStudentReport(LocalStudent studentData, string reportPath)
         {
             WordWrapper wrapper = new WordWrapper();

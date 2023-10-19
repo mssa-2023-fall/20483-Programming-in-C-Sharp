@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grades.WPF</RootNamespace>
     <AssemblyName>Grades.WPF</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -218,9 +218,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\SchoolOfFineArts.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\GradesService.DataModel\">
       <Type>datasvcmap</Type>
     </ServiceReferenceMetadataStorage>
@@ -230,6 +227,9 @@
       <Generator>DataServicesClientSingleFileGeneratorCore</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SchoolOfFineArts.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

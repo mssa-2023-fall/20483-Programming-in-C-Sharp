@@ -4,8 +4,7 @@ using Microsoft.Office.Interop.Word;
 
 namespace Grades.Utilities
 {
-    // TODO: Exercise 2: Task 2a: Specify that the WordWrapper class implements the IDisposable interface
-    public class WordWrapper
+    public class WordWrapper : IDisposable
     {
         dynamic _word = null;
 
@@ -89,10 +88,44 @@ namespace Grades.Utilities
             return this._word.ActiveDocument.Range(this._word.ActiveDocument.Content.End - 1);
         }
 
-        // TODO: Exercise 2: Task 2d: Create a finalizer that calls the Dispose method
+        ~WordWrapper()
+        {
+            this.Dispose(false);
+        }
 
-        // TODO: Exercise 2: Task 2b: Create the protected Dispose(bool) method
+        #region IDisposable Members
 
-        // TODO: Exercise 2: Task 2c: Create the public Dispose method
+        private bool isDisposed = false;
+
+        protected virtual void Dispose(bool isDisposing)
+        {
+            if (!this.isDisposed)
+            {
+                if (isDisposing)
+                {
+                    // Release managed resources here
+                    if (this._word != null)
+                    {
+                        this._word.Quit();
+                    }
+                }
+
+                // Release unmanaged resources here
+                if (this._word != null)
+                {
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(this._word);
+                }
+
+                this.isDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }
 }
